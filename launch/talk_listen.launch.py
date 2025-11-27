@@ -11,8 +11,8 @@ def generate_launch_description():
             executable='talker',  #実行するファイルの指定
             )
     listener = launch_ros.actions.Node(
-             package='mypkg'
-             executable='listener'
+             package='mypkg',
+             executable='listener',
              output='screen'        #ログを端末に出すための設定
              )
 
