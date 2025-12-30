@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2025 Hiroto Fujitake
+# SPDX-License-Identifier: MIT
+
 import rclpy
 from rclpy.node import Node
 from person_msgs.msg import Person
@@ -18,4 +22,3 @@ def cb():
 def main():
     node.create_timer(0.5, cb)
     rclpy.spin(node)
-
