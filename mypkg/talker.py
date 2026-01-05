@@ -75,17 +75,14 @@ class Talker(Node):
 
         self.current_index = 0
 
-        #最初の宿場座標
         start_name, start_latitude, start_longitude = self.stations[0]
         self.latitude = start_latitude
         self.longitude = start_longitude
 
-        # 移動計算用の変数
         self.latitude_step = 0
         self.longitude_step = 0
         self.remaining_steps = 0
 
-        # 次の宿場への移動計画を立てる
         self.plan_next_trip()
 
     def plan_next_trip(self):
@@ -99,7 +96,7 @@ class Talker(Node):
         position_next = (next_latitude, next_longitude)
         distance = geodesic(position_current, position_next).meters
 
-        speed_per_step = 50.0
+        speed_per_step = 100.0
 
         steps = int(distance / speed_per_step)
         self.remaining_steps = max(1, steps)
@@ -109,8 +106,6 @@ class Talker(Node):
 
     def cb(self):
         msg = NavSatFix()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "world"
 
         msg.latitude = self.latitude
         msg.longitude = self.longitude
@@ -124,7 +119,7 @@ class Talker(Node):
 
             if self.remaining_steps % 10 == 0:
                 target_name = self.stations[self.current_index + 1][0]
-                self.get_logger().info(f"{target_name}へ移動中... (残り{self.remaining_steps}ステップ)")
+                self.get_logger().info(f"{target_name}へ移動中...🚶 (残り{self.remaining_steps}ステップ)")
 
         elif self.current_index < len(self.stations) - 1:
             next_name, next_latitude, next_longitude = self.stations[self.current_index + 1]
