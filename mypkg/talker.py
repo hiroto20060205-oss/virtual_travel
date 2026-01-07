@@ -117,7 +117,7 @@ class Talker(Node):
             self.longitude += self.longitude_step
             self.remaining_steps -= 1
 
-            if self.remaining_steps % 10 == 0:
+            if self.remaining_steps % 10 == 0 and self.remaining_steps != 0:
                 target_name = self.stations[self.current_index + 1][0]
                 self.get_logger().info(f"{target_name}へ移動中...🚶 (残り{self.remaining_steps}ステップ)")
 
