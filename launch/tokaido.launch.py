@@ -7,12 +7,12 @@ import launch_ros.actions
 def generate_launch_description():
 
     talker = launch_ros.actions.Node(
-            package='mypkg',
-            executable='talker',
+            package='virtual_travel',
+            executable='gnss_simulator',
             )
     listener = launch_ros.actions.Node(
-             package='mypkg',
-             executable='listener',
+             package='virtual_travel',
+             executable='tour_guide',
              output='screen'
              )
 
