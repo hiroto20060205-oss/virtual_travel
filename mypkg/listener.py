@@ -4,13 +4,13 @@
 
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import NavsatFix
+from sensor_msgs.msg import NavSatFix
 from geopy.distance import geodesic
 
 class Listener(Node):
     def __init__(self):
         super().__init__('listener')
-        self.sub = self.create_subscription(Location, 'current_location', self.cb, 10)
+        self.sub = self.create_subscription(NavSatFix, 'gnss_fix', self.cb, 10)
         
 
         self.stations = [
