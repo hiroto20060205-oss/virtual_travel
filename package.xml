@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>mypkg</name>
+  <name>virtual_travel</name>
   <version>0.0.0</version>
   <description>東海道五十三次＿旅行パッケージ</description>
   <maintainer email="hiroto180205@icloud.com">fujitake</maintainer>
