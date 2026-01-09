@@ -1,4 +1,4 @@
-ロボシスのリポジトリとdokerの連携できた？name: test
+name: test
 on: push
 jobs:
   test:
