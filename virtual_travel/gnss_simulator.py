@@ -22,7 +22,13 @@ class Navigation_node(Node):
 
         self.stations =[]
 
+        package_name = 'virtual_travel'
+        pkg_share = get_package_share_directory(package_name)
+        csv_path = os.path.join(pkg_share, 'config', 'location.csv')
+        self.load_stations(csv_path)
+
         self.current_index = 0
+
         if self.stations:
             self.latitude = self.stations[0][1]
             self.longitude = self.stations[0][2]
@@ -36,11 +42,6 @@ class Navigation_node(Node):
 
         if len(self.stations) > 1:
             self.plan_next_trip()
-
-        package_name = 'virtual_travel'
-        pkg_share = get_package_share_directory(package_name)
-        csv_path = os.path.join(pkg_share, 'config', 'location.csv')
-        self.load_stations(csv_path)
 
     def load_stations(self, path):
         try:
