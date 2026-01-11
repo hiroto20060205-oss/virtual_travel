@@ -7,13 +7,10 @@ jobs:
     steps:
        - uses: actions/checkout@v3
        - name: build and test
-         shell: bash
          run: |
            apt-get update
            apt-get install -y python3-geopy
            python3 -c "import geopy; print('geopy installed successfully')"
-           mkdir -p /root/ros2_ws/src/virtual_travel
-           cp -r ./* /root/ros2_ws/src/virtual_travel/
+           rsync -av ./ /root/ros2_ws/src/robosys2025_assignment_2/
            cd /root/ros2_ws
-           source /opt/ros/humble/setup.bash
            bash -xv ./src/virtual_travel/test/test.bash /root
