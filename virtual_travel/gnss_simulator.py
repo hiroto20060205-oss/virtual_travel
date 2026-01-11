@@ -52,8 +52,13 @@ class Navigation_node(Node):
                     try:
                         if len(row) < 3: 
                             continue
-                        self.stations.append((row[0], float(row[1]), float(row[2])))
-                    except ValueError:
+                        name = row[0]
+                        latitude = float(row[1])
+                        longitude = float(row[2])
+                        if not(-90 <= latitude <= 90 and -180 <= longitude <= 180):
+                            continue
+                        self.stations.append((name, latitude, longitude))
+                    except (ValueError, IndexError):
                         continue
             self.get_logger().info(f"CSV読み込み成功: {path} ({len(self.stations)}件)")
         except FileNotFoundError:
