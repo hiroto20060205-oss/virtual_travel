@@ -18,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='fujitake',
     maintainer_email='hiroto180205@icloud.com',
-    description='東海道五十三次＿旅行パッケージ',
+    description='GNSS simulator using CSV',
     license='MIT',
     extras_require={
         'test': [
@@ -28,7 +28,6 @@ setup(
     entry_points={
         'console_scripts': [
             'gnss_simulator = virtual_travel.gnss_simulator:main',
-            'tour_guide = virtual_travel.tour_guide:main',
         ],
     },
 )
