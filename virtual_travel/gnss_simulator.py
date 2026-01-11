@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# SPDX-FileCopyrightText: 2025 Fujitake Hiroto
+# SPDX-FileCopyrightText: 2025-2026 Fujitake Hiroto
 # SPDX-License-Identifier: MIT
 
 import rclpy
