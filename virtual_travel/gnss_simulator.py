@@ -47,12 +47,18 @@ class Navigation_node(Node):
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
-                next(reader)
+                next(reader, None)
                 for row in reader:
-                    self.stations.append((row[0], float(row[1]), float(row[2])))
+                    try:
+                        if len(row) < 3: 
+                            continue
+                        self.stations.append((row[0], float(row[1]), float(row[2])))
+                    except ValueError:
+                        continue
             self.get_logger().info(f"CSV読み込み成功: {path} ({len(self.stations)}件)")
         except FileNotFoundError:
             self.get_logger().error(f"ファイルが見つかりません: {path}")
+            self.stations = []
 
     def plan_next_trip(self):
         if self.current_index >= len(self.stations) - 1:
@@ -78,6 +84,11 @@ class Navigation_node(Node):
         msg.latitude = self.latitude
         msg.longitude = self.longitude
         self.pub.publish(msg)
+
+        if not self.stations:
+            self.pub_name.publish(String(data="Goal"))
+            self.pub_distance.publish(Float32(data=0.0))
+            return
 
         target_name = "Goal"
         distance = 0.0
