@@ -8,6 +8,10 @@ jobs:
        - uses: actions/checkout@v3
        - name: build and test
          run: |
-           rsync -av ./ /root/ros2_ws/src/virtual_travel/
+           apt-get update
+           apt-get install -y python3-geopy
+           python3 -c "import geopy; print('geopy installed successfully')"
+           mkdir -p /root/ros2_ws/src/virtual_travel
+           cp -r ./* /root/ros2_ws/src/virtual_travel/
            cd /root/ros2_ws
            bash -xv ./src/virtual_travel/test/test.bash /root
