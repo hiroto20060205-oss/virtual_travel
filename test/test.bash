@@ -25,8 +25,7 @@ echo "name,latitude,longitude" > $CSV_PATH
 echo "Tokyo,35.0,139.0" >> $CSV_PATH
 echo "Osaka,34.0,135.0" >> $CSV_PATH
 
-ros2 run virtual_travel gnss_simulator > /tmp/gnss.log 2>&1 &
-NODE_PID=$!
+ros2 run virtual_travel gnss_simulator > /tmp/gnss.log 2>&1 & NODE_PID=$!
 sleep 3
 
 out=$(ros2 topic echo /nearest_location --once --field data)
@@ -48,14 +47,14 @@ cp /tmp/location.csv.bak $CSV_PATH
 cp /tmp/location.csv.bak $CSV_PATH
 rm $CSV_PATH
 
-ros2 run virtual_travel gnss_simulator > /tmp/gnss_missing.log 2>&1 &
-NODE_PID=$!
+ros2 run virtual_travel gnss_simulator > /tmp/gnss_missing.log 2>&1 & NODE_PID=$!
 sleep 3
 
 out=$(timeout 10 ros2 topic echo /nearest_location --once --field data)
 echo "Test2 Result: [$out]"
 
-if ! echo "$out" | grep -q "Goal"; then
+if ! echo "$out" | grep -q "Goal"
+then
     ng "$LINENO"
 fi
 
@@ -68,14 +67,14 @@ echo "name,latitude,longitude" > $CSV_PATH
 echo "Nagoya,," >> $CSV_PATH
 echo "Hakata,abc,あいう" >> $CSV_PATH
 
-ros2 run virtual_travel gnss_simulator > /tmp/gnss_invalid.log 2>&1 &
-NODE_PID=$!
+ros2 run virtual_travel gnss_simulator > /tmp/gnss_invalid.log 2>&1 & NODE_PID=$!
 sleep 3
 
 out=$(timeout 10 ros2 topic echo /nearest_location --once --field data)
 echo "Test3 Result: [$out]"
 
-if ! echo "$out" | grep -q "Goal"; then
+if ! echo "$out" | grep -q "Goal"
+then
     ng "$LINENO"
 fi
 
@@ -90,17 +89,37 @@ sleep 3
 out=$(timeout 10 ros2 topic echo /nearest_location --once --field data)
 echo "Test4 Result: [$out]"
 
-if ! echo "$out" | grep -q "Goal"; then
+if ! echo "$out" | grep -q "Goal"
+then
      ng "$LINENO"
+fi
+
+kill $NODE_PID
+
+# 5.区切り文字が違う、パラメータ間に空白がある場合の入力
+echo "name;latitude;longitude" > $CSV_PATH
+echo "name, latitude, longitude" > $CSV_PATH
+
+ros2 run virtual_travel gnss_simulator > /tmp/gnss_range.log 2>&1 & NODE_PID=$!
+sleep 3
+
+out=$(timeout 10 ros2 topic echo /nearest_location --once --field data)
+echo "Test5 Result: [$out]"
+
+if ! echo "$out" | grep -q "Goal"
+then
+    ng "$LINENO"
 fi
 
 kill $NODE_PID
 
 
 
+
 cp /tmp/location.csv.bak $CSV_PATH
 
-if [ $res -eq 0 ]; then
+if [ $res -eq 0 ]
+then
     echo "ok"
     exit 0
 else
