@@ -1,21 +1,20 @@
-# 擬似GNSSを使った仮想旅行パッケージ
+# 仮想GNSSを使った経由地移動シミュレーター
+![test](https://github.com/hiroto20060205-oss/virtual_travel/actions/workflows/test.yml/badge.svg)
 
 ## 概要
-**東海道五十三次（日本橋〜京都三条大橋）を仮想的に旅行するためにGNSSデータ（緯度・経度）を配信・受信するROS 2パッケージです.**
-**パブリッシャ内の配列内の異なる経緯度を持つ2点間の距離をステップ数に分けて計測することができます.**
+本リポジトリの`config`ディレクトリにある[location.csv](https://github.com/hiroto20060205-oss/virtual_travel/blob/dev/config/location.csv)の地名、緯度、経度を読み込んで、現在地と目的地までの距離を算出するパッケージです。
+次の地点まで一定の速度で進行し、その間の座標、距離、地名をトピックとしてPublishします。
 
 ## ノード
-* **`gnss_simulator`**
-    * **機能**: 定義されたルート（東海道五十三次）に従って、一定間隔で現在の緯度・経度を更新し、出力します.
-    * **使用ライブラリ**: `GeoPy`（ポイント間の測地距離を計算）
-
-* **`tour_guide`**
-    * **機能**: GNSSデータを受信し、現在の位置情報や通過している宿場町の情報をログとして表示します.
+### gnss_simulator
+- 
 
 ## トピック
-| トピック名 | メッセージ型 | パブリッシャ | サブスクライバ | 説明 |
-| :--- | :--- | :--- | :--- | :--- |
-| `gnss_fix` | `sensor_msgs/msg/NavSatFix` | `gnss_simulator.py` | `tour_guide.py` | 現在の緯度・経度・ステータス情報を含む標準GNNSメッセージ型 |
+### gnss_fix (sensor_msgs/NavSatFix)
+
+### nearest_location (std_msg/String)
+
+### distance_to_target (std_msgs/Float32)
 
 ## Geopyのインストール
 ```bash
@@ -24,7 +23,7 @@ sudo apt install python3-geopy
 
 ## 実行
 ```bash
-ros2 launch virtual_travel tokaido.launch.py
+ros2 run virtual_travel gnss_simulator
 ```
 
 ## 必要なソフトウェア
