@@ -8,7 +8,7 @@
 
 ## ノード
 ### gnss_simulator
-- [location.csv](https://github.com/hiroto20060205-oss/virtual_trave    l/blob/dev/config/location.csv)から経由地リストを読み込む
+- [location.csv](https://github.com/hiroto20060205-oss/virtual_travel/blob/dev/config/location.csv)から経由地リストを読み込む
 - `GeoPy` を用いて現在地と次地点の距離を計算する
 - 等速直線運動で座標を更新し、現在地・目的地・距離を publish する
 - 全ての経由地を通過すると "Goal" を出力して停止する
